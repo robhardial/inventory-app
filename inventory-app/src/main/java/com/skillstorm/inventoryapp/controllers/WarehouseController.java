@@ -28,8 +28,8 @@ public class WarehouseController {
 
     @GetMapping
     public ResponseEntity<List<Warehouse>> findAllWarehouses() {
-        List<Warehouse> warehouse = warehouseService.findAllWarehouses();
-        return new ResponseEntity<List<Warehouse>>(warehouse, HttpStatus.OK);
+        List<Warehouse> warehouses = warehouseService.findAllWarehouses();
+        return new ResponseEntity<List<Warehouse>>(warehouses, HttpStatus.OK);
     }
 
     @GetMapping("/warehouse/{id}")
