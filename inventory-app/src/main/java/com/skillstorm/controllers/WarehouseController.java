@@ -1,12 +1,17 @@
-package com.skillstorm.inventoryapp.controllers;
+package com.skillstorm.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skillstorm.inventoryapp.models.Warehouse;
-import com.skillstorm.inventoryapp.services.WarehouseService;
+import com.skillstorm.DTO.CarQuantityDTO;
+import com.skillstorm.models.Car;
+import com.skillstorm.models.Inventory;
+import com.skillstorm.models.Warehouse;
+import com.skillstorm.services.InventoryService;
+import com.skillstorm.services.WarehouseService;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +30,9 @@ public class WarehouseController {
 
     @Autowired
     WarehouseService warehouseService;
+
+    @Autowired
+    InventoryService inventoryService;
 
     @GetMapping
     public ResponseEntity<List<Warehouse>> findAllWarehouses() {
@@ -55,4 +63,37 @@ public class WarehouseController {
         warehouseService.deleteWarehouseById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/warehouse/inventory/{id}")
+    public ResponseEntity<List<CarQuantityDTO>> getWarehouseInventoryById(@PathVariable int id) {
+        List<CarQuantityDTO> cars = inventoryService.getCarsInWarehouse(id);
+        return new ResponseEntity<List<CarQuantityDTO>>(cars, HttpStatus.OK);
+    }
+
+    @PostMapping("/warehouse/inventory/{id}")
+    public ResponseEntity<Inventory> addNewCarToAWarehouse(@PathVariable int id,
+            @RequestBody CarQuantityDTO carQuantityDTO) {
+        Car car = carQuantityDTO.getCar();
+        int quantity = carQuantityDTO.getQuantity();
+        Inventory newInventory = inventoryService.addNewCarToAWarehouse(car, quantity, id);
+        return new ResponseEntity<Inventory>(newInventory, HttpStatus.OK);
+    }
+
+    @PutMapping("/warehouse/inventory/{id}")
+    public ResponseEntity<Inventory> editCarInAWarehouse(@PathVariable int id,
+            @RequestBody CarQuantityDTO carQuantityDTO) {
+        Car car = carQuantityDTO.getCar();
+        int quantity = carQuantityDTO.getQuantity();
+        Inventory updatedInventory = inventoryService.editCarInAWarehouse(car, quantity, id);
+        return new ResponseEntity<Inventory>(updatedInventory, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/warehouse/inventory/{id}")
+    public ResponseEntity<Inventory> deleteCarInAWarehouse(@PathVariable int id,
+            @RequestBody CarQuantityDTO carQuantityDTO) {
+        Car car = carQuantityDTO.getCar();
+        inventoryService.deleteCarInAWarehouse(id, car);
+        return ResponseEntity.noContent().build();
+    }
+
 }

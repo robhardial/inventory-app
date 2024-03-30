@@ -1,4 +1,4 @@
-package com.skillstorm.inventoryapp.services;
+package com.skillstorm.services;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skillstorm.inventoryapp.models.Warehouse;
-import com.skillstorm.inventoryapp.repositories.WarehouseRepository;
+import com.skillstorm.models.Warehouse;
+import com.skillstorm.repositories.WarehouseRepository;
 
 @Service
 public class WarehouseService {

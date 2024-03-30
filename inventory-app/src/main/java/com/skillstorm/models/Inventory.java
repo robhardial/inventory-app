@@ -1,4 +1,4 @@
-package com.skillstorm.inventoryapp.models;
+package com.skillstorm.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

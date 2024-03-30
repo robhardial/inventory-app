@@ -1,11 +1,14 @@
-package com.skillstorm.inventoryapp.repositories;
+package com.skillstorm.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.skillstorm.inventoryapp.models.Car;
+import com.skillstorm.models.Car;
+import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
+
+    Car findByMakeAndModel(String make, String model);
 
 }
