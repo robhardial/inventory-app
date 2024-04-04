@@ -76,8 +76,8 @@ public class InventoryService {
     }
 
     public Inventory addNewCarToAWarehouse(Car car, int quantity, int warehouseId) {
-        Car existingCar = carRepository.findByMakeAndModel(car.getMake(),
-                car.getModel());
+        Car existingCar = carRepository.findByMakeAndModelAndYear(car.getMake(),
+                car.getModel(), car.getYear());
 
         if (existingCar == null) {
             existingCar = carRepository.save(car);
@@ -143,6 +143,35 @@ public class InventoryService {
     public void deleteCarInAWarehouse(int id, Car car) {
         inventoryRepository.deleteById(id);
         carRepository.deleteById(car.getCarId());
+    }
+
+    public CarQuantityDTO getACarInventory(int id) {
+        Optional<Inventory> inventoryItemOptional = inventoryRepository.findByCarId(id);
+
+        if (inventoryItemOptional.isPresent()) {
+            Inventory inventoryItem = inventoryItemOptional.get();
+            return new CarQuantityDTO(inventoryItem.getCar(), inventoryItem.getQuantity());
+        } else {
+            return null; // or handle the case where the inventory item is not found
+        }
+    }
+
+    public void deleteSingleCarFromInventory(int id) {
+        inventoryRepository.deleteByCarId(id);
+        carRepository.deleteById(id);
+    }
+
+    public void deleteWarehouse(int id) {
+        List<Inventory> invList = inventoryRepository.findByWarehouseId(id);
+        List<Integer> cars = invList.stream().map(Inventory::getCar).map(Car::getCarId).collect(Collectors.toList());
+        inventoryRepository.deleteAll(invList);
+
+        for (Integer carId : cars) {
+            carRepository.deleteById(carId);
+        }
+
+        warehouseRepository.deleteById(id);
+
     }
 
 }

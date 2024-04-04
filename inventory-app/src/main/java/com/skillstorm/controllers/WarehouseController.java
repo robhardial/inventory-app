@@ -16,6 +16,7 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/warehouses")
+@CrossOrigin
 public class WarehouseController {
 
     @Autowired
@@ -94,6 +96,26 @@ public class WarehouseController {
         Car car = carQuantityDTO.getCar();
         inventoryService.deleteCarInAWarehouse(id, car);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/warehouse/inventory/car/{id}")
+    public ResponseEntity<CarQuantityDTO> getSingleCarFromInventory(@PathVariable int id) {
+        CarQuantityDTO newDto = inventoryService.getACarInventory(id);
+        return new ResponseEntity<CarQuantityDTO>(newDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/warehouse/inventory/car/{id}")
+    public ResponseEntity<CarQuantityDTO> deleteSingleCarFromInventory(@PathVariable int id) {
+        inventoryService.deleteSingleCarFromInventory(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
+    @DeleteMapping("/inventory/warehouse/{id}")
+    public ResponseEntity<CarQuantityDTO> deleteWarehouseContents(@PathVariable int id) {
+        inventoryService.deleteWarehouse(id);
+        return ResponseEntity.noContent().build();
+
     }
 
 }
