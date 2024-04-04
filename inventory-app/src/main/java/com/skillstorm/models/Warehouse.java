@@ -1,4 +1,4 @@
-package com.skillstorm.inventoryapp.models;
+package com.skillstorm.models;
 
 import java.util.Set;
 

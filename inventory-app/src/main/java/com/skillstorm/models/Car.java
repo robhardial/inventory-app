@@ -1,4 +1,4 @@
-package com.skillstorm.inventoryapp.models;
+package com.skillstorm.models;
 
 import java.math.BigDecimal;
 import java.util.Set;

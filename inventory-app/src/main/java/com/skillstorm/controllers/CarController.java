@@ -1,11 +1,11 @@
-package com.skillstorm.inventoryapp.controllers;
+package com.skillstorm.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skillstorm.inventoryapp.models.Car;
-import com.skillstorm.inventoryapp.models.Warehouse;
-import com.skillstorm.inventoryapp.services.CarService;
-import com.skillstorm.inventoryapp.services.WarehouseService;
+import com.skillstorm.models.Car;
+import com.skillstorm.models.Warehouse;
+import com.skillstorm.services.CarService;
+import com.skillstorm.services.WarehouseService;
 
 import java.util.List;
 

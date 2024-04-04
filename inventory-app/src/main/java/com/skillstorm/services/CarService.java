@@ -1,4 +1,4 @@
-package com.skillstorm.inventoryapp.services;
+package com.skillstorm.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skillstorm.inventoryapp.models.Car;
-import com.skillstorm.inventoryapp.repositories.CarRepository;
+import com.skillstorm.models.Car;
+import com.skillstorm.repositories.CarRepository;
 
 @Service
 public class CarService {
