@@ -15,3 +15,4 @@ Technologies: Spring Boot, PostgreSQL, CRUD, RESTful APIs
 
 ## Built With
 ![](https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white)
+![](https://img.shields.io/badge/-Spring_Boot-6DB33F?style=flat-square&logo=spring-boot&logoColor=white)
